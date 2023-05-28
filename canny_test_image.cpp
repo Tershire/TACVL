@@ -1,0 +1,17 @@
+// canny_tester.cpp
+// 2023 MAY 28
+// Wonhee LEE
+
+// HEADER FILE ////////////////////////////////////////////////////////////////
+#include <opencv2/opencv.hpp>;
+#include <opencv2/cudaimgproc.hpp>;
+
+
+// MAIN ///////////////////////////////////////////////////////////////////////
+int main(int argc, char **argv)
+{
+    using namespace cv;
+
+
+    return 0;
+}
