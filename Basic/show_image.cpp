@@ -2,6 +2,13 @@
 // 2023 MAY 28
 // Wonhee LEE
 
+// refered:
+https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html
+
+// load & show image then convert to grayscale.
+// save the grayscale image when 's' key is down.
+
+
 // HEADER /////////////////////////////////////////////////////////////////////
 #include "opencv2/opencv.hpp"
 
