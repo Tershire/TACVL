@@ -117,41 +117,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named canny_test_image
+# Target rules for targets named canny_edge_image
 
 # Build rule for target.
-canny_test_image: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 canny_test_image
-.PHONY : canny_test_image
+canny_edge_image: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 canny_edge_image
+.PHONY : canny_edge_image
 
 # fast build rule for target.
-canny_test_image/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_test_image.dir/build.make CMakeFiles/canny_test_image.dir/build
-.PHONY : canny_test_image/fast
+canny_edge_image/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_edge_image.dir/build.make CMakeFiles/canny_edge_image.dir/build
+.PHONY : canny_edge_image/fast
 
-canny_test_image.o: canny_test_image.cpp.o
-.PHONY : canny_test_image.o
+canny_edge_image.o: canny_edge_image.cpp.o
+.PHONY : canny_edge_image.o
 
 # target to build an object file
-canny_test_image.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_test_image.dir/build.make CMakeFiles/canny_test_image.dir/canny_test_image.cpp.o
-.PHONY : canny_test_image.cpp.o
+canny_edge_image.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_edge_image.dir/build.make CMakeFiles/canny_edge_image.dir/canny_edge_image.cpp.o
+.PHONY : canny_edge_image.cpp.o
 
-canny_test_image.i: canny_test_image.cpp.i
-.PHONY : canny_test_image.i
+canny_edge_image.i: canny_edge_image.cpp.i
+.PHONY : canny_edge_image.i
 
 # target to preprocess a source file
-canny_test_image.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_test_image.dir/build.make CMakeFiles/canny_test_image.dir/canny_test_image.cpp.i
-.PHONY : canny_test_image.cpp.i
+canny_edge_image.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_edge_image.dir/build.make CMakeFiles/canny_edge_image.dir/canny_edge_image.cpp.i
+.PHONY : canny_edge_image.cpp.i
 
-canny_test_image.s: canny_test_image.cpp.s
-.PHONY : canny_test_image.s
+canny_edge_image.s: canny_edge_image.cpp.s
+.PHONY : canny_edge_image.s
 
 # target to generate assembly for a file
-canny_test_image.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_test_image.dir/build.make CMakeFiles/canny_test_image.dir/canny_test_image.cpp.s
-.PHONY : canny_test_image.cpp.s
+canny_edge_image.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canny_edge_image.dir/build.make CMakeFiles/canny_edge_image.dir/canny_edge_image.cpp.s
+.PHONY : canny_edge_image.cpp.s
 
 # Help Target
 help:
@@ -161,10 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... canny_test_image"
-	@echo "... canny_test_image.o"
-	@echo "... canny_test_image.i"
-	@echo "... canny_test_image.s"
+	@echo "... canny_edge_image"
+	@echo "... canny_edge_image.o"
+	@echo "... canny_edge_image.i"
+	@echo "... canny_edge_image.s"
 .PHONY : help
 
 
