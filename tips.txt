@@ -1,0 +1,11 @@
+openCV 에서
+
+VideoCapture cap(CAMERA_ID) 를 쓸 때,
+CAMERA_ID 를 찾으려면
+
+bash 에서,
+v4l2-ctl --list-devices
+
+그리고 /dev/video# 에서 해당 기기의 첫 번째 # 가 
+곧 CAMERA_ID 가 되는 듯 하다
+
