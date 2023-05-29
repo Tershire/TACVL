@@ -2,11 +2,13 @@
 // 2023 MAY 28
 // Wonhee LEE
 
-// refered:
-https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html
+// referred:
+// https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html
 
 // load & show image then convert to grayscale.
 // save the grayscale image when 's' key is down.
+
+// command: /Feature$ build/show_image Data/Dove.jpg
 
 
 // HEADER /////////////////////////////////////////////////////////////////////
@@ -33,18 +35,21 @@ int main(int argc, char **argv)
         return 1;
     }
 
+
     // Show Image =============================================================
     imshow("Display", img);
     int k = waitKey(0);
+
 
     // Convert to Grayscale Image =============================================
     Mat img_gray;
     cvtColor(img, img_gray, COLOR_BGR2GRAY);
     
+
     // Save Image =============================================================
     if (k == 's')
     {
-        imwrite(file_dir + "_saved" + file_format, img_gray);
+        imwrite(file_dir + "_gray" + file_format, img_gray);
         std::cout << "Grayscale image saved to the original image directory\n";
     }
 
