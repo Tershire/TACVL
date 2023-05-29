@@ -1,6 +1,6 @@
 // canny_test_image.cpp
 // 2023 MAY 28
-// Wonhee LEE
+// Tershire
 
 // referred:
 // https://stackoverflow.com/questions/63543033/

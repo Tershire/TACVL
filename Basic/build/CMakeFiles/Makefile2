@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /home/tershire/Documents/Research/TACVL/Basic/build
 
 # The main recursive "all" target.
 all: CMakeFiles/show_image.dir/all
+all: CMakeFiles/stream_video.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/show_image.dir/clean
+clean: CMakeFiles/stream_video.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +101,32 @@ show_image: CMakeFiles/show_image.dir/rule
 CMakeFiles/show_image.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/show_image.dir/build.make CMakeFiles/show_image.dir/clean
 .PHONY : CMakeFiles/show_image.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/stream_video.dir
+
+# All Build rule for target.
+CMakeFiles/stream_video.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles --progress-num=3,4 "Built target stream_video"
+.PHONY : CMakeFiles/stream_video.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/stream_video.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/stream_video.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles 0
+.PHONY : CMakeFiles/stream_video.dir/rule
+
+# Convenience name for target.
+stream_video: CMakeFiles/stream_video.dir/rule
+.PHONY : stream_video
+
+# clean rule for target.
+CMakeFiles/stream_video.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/clean
+.PHONY : CMakeFiles/stream_video.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

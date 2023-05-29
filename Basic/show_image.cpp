@@ -1,6 +1,6 @@
 // show_image.cpp
 // 2023 MAY 28
-// Wonhee LEE
+// Tershire
 
 // referred:
 // https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html

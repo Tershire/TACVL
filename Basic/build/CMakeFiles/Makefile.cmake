@@ -57,4 +57,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/show_image.dir/DependInfo.cmake"
+  "CMakeFiles/stream_video.dir/DependInfo.cmake"
   )

@@ -129,6 +129,19 @@ show_image/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/show_image.dir/build.make CMakeFiles/show_image.dir/build
 .PHONY : show_image/fast
 
+#=============================================================================
+# Target rules for targets named stream_video
+
+# Build rule for target.
+stream_video: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 stream_video
+.PHONY : stream_video
+
+# fast build rule for target.
+stream_video/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/build
+.PHONY : stream_video/fast
+
 show_image.o: show_image.cpp.o
 .PHONY : show_image.o
 
@@ -153,6 +166,30 @@ show_image.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/show_image.dir/build.make CMakeFiles/show_image.dir/show_image.cpp.s
 .PHONY : show_image.cpp.s
 
+stream_video.o: stream_video.cpp.o
+.PHONY : stream_video.o
+
+# target to build an object file
+stream_video.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/stream_video.cpp.o
+.PHONY : stream_video.cpp.o
+
+stream_video.i: stream_video.cpp.i
+.PHONY : stream_video.i
+
+# target to preprocess a source file
+stream_video.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/stream_video.cpp.i
+.PHONY : stream_video.cpp.i
+
+stream_video.s: stream_video.cpp.s
+.PHONY : stream_video.s
+
+# target to generate assembly for a file
+stream_video.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stream_video.dir/build.make CMakeFiles/stream_video.dir/stream_video.cpp.s
+.PHONY : stream_video.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +199,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... show_image"
+	@echo "... stream_video"
 	@echo "... show_image.o"
 	@echo "... show_image.i"
 	@echo "... show_image.s"
+	@echo "... stream_video.o"
+	@echo "... stream_video.i"
+	@echo "... stream_video.s"
 .PHONY : help
 
 
