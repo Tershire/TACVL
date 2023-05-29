@@ -1,10 +1,8 @@
-// stream_video.cpp
+// canny_edge_stream.cpp
 // 2023 MAY 29
 // Tershire
 
 // referred:
-// https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html
-// https://docs.opencv.org/4.x/d8/dfe/classcv_1_1VideoCapture.html
 
 // stream video
 
@@ -21,21 +19,11 @@ using namespace cv;
 int main(int argc, char **argv)
 {
     // Variable ===============================================================
-    Mat frame;
+    Mat frame, frame_edge;
 
 
     // Create VideoCapture Object =============================================
-    VideoCapture cap;
-    // VideoCapture cap(0); // more simple & usual method
-
-    // ------------------------------------------------------------------------
-    // device & API info
-    int device_id = 0;             // 0 = open default camera
-    int api_id = cv::CAP_ANY;      // 0 = autodetect default API
-
-    // open selected camera using selected API
-    cap.open(device_id, api_id);
-    // ------------------------------------------------------------------------
+    VideoCapture cap(0);
 
     // check capture
     if (!cap.isOpened()) {
@@ -47,9 +35,8 @@ int main(int argc, char **argv)
     // Stream Video ===========================================================
     for(;;)
     {
-        // read frame
+        // read frame ---------------------------------------------------------
         cap >> frame;
-        // cap.read(frame); // equivalent classical method
 
         // check frame
         if (frame.empty()) 
@@ -58,10 +45,17 @@ int main(int argc, char **argv)
             break;
         }
 
-        // show frame
-        imshow("Video Stream", frame);
+        // Canny Edge Detection -----------------------------------------------
+        // apply blur filter (to reduce noise)
+        GaussianBlur(frame, frame, Size(5, 5), 0); // effective for Size > 3
+
+        // apply Canny Edge Detector
+        Canny(frame, frame_edge, 50, 100);
+
+        // show frame ---------------------------------------------------------
+        imshow("Canny Edge Stream", frame_edge);
         int key = waitKey(10);
-        if (key == 27) 
+        if (key == 27)
         {
             break; // quit when 'esc' pressed
         }
