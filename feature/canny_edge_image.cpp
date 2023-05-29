@@ -6,7 +6,7 @@
 // https://stackoverflow.com/questions/63543033/
 // does-cv2-canny-perform-a-gaussian-blur
 
-// command: /Feature$ build/canny_test_image Data/Dove.jpg
+// command: /Feature$ build/canny_test_image data/dove.jpg
 
 
 // HEADER FILE ////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
 // load & show image then convert to grayscale.
 // save the grayscale image when 's' key is down.
 
-// command: /Feature$ build/show_image Data/Dove.jpg
+// command: /Feature$ build/show_image data/dove.jpg
 
 
 // HEADER /////////////////////////////////////////////////////////////////////

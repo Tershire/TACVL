@@ -1,3 +1,0 @@
-/home/tershire/Documents/Research/TACVL/Feature/build/CMakeFiles/canny_edge_image.dir
-/home/tershire/Documents/Research/TACVL/Feature/build/CMakeFiles/edit_cache.dir
-/home/tershire/Documents/Research/TACVL/Feature/build/CMakeFiles/rebuild_cache.dir

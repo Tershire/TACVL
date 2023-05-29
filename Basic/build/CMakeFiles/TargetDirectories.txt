@@ -1,4 +1,0 @@
-/home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles/show_image.dir
-/home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles/stream_video.dir
-/home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles/edit_cache.dir
-/home/tershire/Documents/Research/TACVL/Basic/build/CMakeFiles/rebuild_cache.dir
