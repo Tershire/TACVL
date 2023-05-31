@@ -1,10 +1,10 @@
-// canny_edge_stream.cpp
+// canny_stream.cpp
 // 2023 MAY 29
 // Tershire
 
 // referred:
 
-// stream video
+// apply Canny edge detector
 
 // command: 
 

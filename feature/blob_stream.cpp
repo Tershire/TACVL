@@ -5,7 +5,7 @@
 // referred:
 // https://eehoeskrap.tistory.com/123
 
-// stream video
+// apply blob detector
 
 // command: 
 

@@ -1,10 +1,11 @@
-// otsu_stream.cpp
+// otsu_canny_stream.cpp
 // 2023 MAY 31
 // Tershire
 
 // referred:
 
-// apply Otsu thresholding
+// convert to gray frame, apply Otsu thresholding, then Canny edge detector.
+// I see no big difference from using only Canny edge detector.
 
 // command: 
 
@@ -19,11 +20,11 @@ using namespace cv;
 int main(int argc, char **argv)
 {
     // Variable ===============================================================
-    Mat frame, frame_otsu;
+    Mat frame, frame_edge;
 
 
     // Create VideoCapture Object =============================================
-    VideoCapture cap(0);
+    VideoCapture cap(2);
 
     // check capture
     if (!cap.isOpened()) {
@@ -45,18 +46,21 @@ int main(int argc, char **argv)
             break;
         }
 
-        // Otsu Thresholding --------------------------------------------------
+        // main ---------------------------------------------------------------
         // convert to grayscale (needed for Otsu)
         cvtColor(frame, frame, COLOR_BGR2GRAY);
 
         // apply blur filter (to reduce noise)
-        // GaussianBlur(frame, frame, Size(5, 5), 0); // effective for Size > 3
+        GaussianBlur(frame, frame, Size(5, 5), 0); // effective for Size > 3
 
         // apply Otsu Thresholding
-        threshold(frame, frame_otsu, 0, 255, THRESH_OTSU);
+        threshold(frame, frame_edge, 0, 255, THRESH_OTSU);
+
+        // apply Canny edge detector
+        Canny(frame, frame_edge, 50, 100);
 
         // show frame ---------------------------------------------------------
-        imshow("Canny Edge Stream", frame_otsu);
+        imshow("Otsu-Canny", frame_edge);
         int key = waitKey(10);
         if (key == 27)
         {

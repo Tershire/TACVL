@@ -1,4 +1,4 @@
-// canny_test_image.cpp
+// canny_image.cpp
 // 2023 MAY 28
 // Tershire
 
