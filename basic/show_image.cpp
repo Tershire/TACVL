@@ -21,7 +21,7 @@ using namespace cv;
 int main(int argc, char **argv)
 {
     // Load Image =============================================================
-    std::string file_dir    = "data/Dove";
+    std::string file_dir    = "data/dove";
     std::string file_format = ".jpg";
     
     std::string image_path = samples::findFile(file_dir + file_format);
