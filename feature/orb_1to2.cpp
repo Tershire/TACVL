@@ -112,9 +112,9 @@ int main(int argc, char **argv)
     // Save Image =============================================================
     std::string file_dir, file_format;
 
-    size_t index_dot = img_path_1.find(".");
-    file_dir    = img_path_1.substr(0, index_dot);
-    file_format = img_path_1.substr(index_dot, img_path_1.length());
+    size_t index_dot = img_path_2.find(".");
+    file_dir    = img_path_2.substr(0, index_dot - 1);
+    file_format = img_path_2.substr(index_dot, img_path_2.length());
 
     if (k == 's')
     {
