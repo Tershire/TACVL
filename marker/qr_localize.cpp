@@ -1,13 +1,15 @@
-// qr_stream.cpp
+// qr_localize.cpp
 // 2023 JUN 03
 // Tershire
 
 // referred:
-// https://itchbo.tistory.com/101
+// https://temugeb.github.io/python/computer_vision/
+// 2021/06/15/QR-Code_Orientation.html
 
-// detect QR code and show its bounding box
+// detect QR code and get relative pose w.r.t. camera
+// UNFINISHED
 
-// command: 
+// command:
 
 
 // HEADER /////////////////////////////////////////////////////////////////////
