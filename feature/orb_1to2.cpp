@@ -79,7 +79,7 @@ int main(int argc, char **argv)
     // sort & remove outliers -------------------------------------------------
     // distance [min, max]
     auto min_max = minmax_element(matches.begin(), matches.end(),
-        [](const DMatch &m1, const DMatch &m2) 
+        [](const DMatch& m1, const DMatch& m2) 
         {return m1.distance < m2.distance;}); // hard to understand
     double min_distance = min_max.first ->distance;
     double max_distance = min_max.second->distance;
