@@ -54,12 +54,13 @@ int main(int argc, char **argv)
             break;
         }
 
-        // Canny Edge Detection -----------------------------------------------
+        // Main --------------------------------------------------------------
         // convert to grayscale
         cvtColor(frame, frame, COLOR_BGR2GRAY);
         
         // apply blur filter (to reduce noise)
-        GaussianBlur(frame, frame, Size(5, 5), 0); // effective for Size > 3
+        // GaussianBlur(frame, frame, Size(5, 5), 0);
+        blur(frame, frame, Size(3,3)); // Sobel -> seems to work better
 
         // apply Canny edge detector
         Canny(frame, frame_edge, 50, 100);
@@ -86,13 +87,13 @@ int main(int argc, char **argv)
         {
             drawContours(frame_ellipse, contours, i, Scalar(0, 0, 255));
 
-            ellipse(frame_ellipse, minEllipses[i], Scalar(0, 0, 255), 2);
+            ellipse(frame_ellipse, minEllipses[i], Scalar(0, 255, 0), 2);
 
             minRects[i].points(rect_points);
             for (int j = 0; j < 4; j++)
             {
                 line(frame_ellipse, rect_points[j], rect_points[(j + 1) % 4], 
-                     Scalar(0, 0, 255));
+                     Scalar(255, 0, 0));
             }
         }
 
