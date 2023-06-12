@@ -1,12 +1,10 @@
-// ellipse_stream.cpp
-// 2023 JUN 10
+// canny_trackbar.cpp
+// 2023 JUN 12
 // Tershire
 
 // referred: 
-// https://docs.opencv.org/4.x/de/d62/tutorial_bounding_rotated_ellipses.html
-// https://docs.opencv.org/3.4/db/dd6/classcv_1_1RotatedRect.html#details
 
-// find ellipse after contour extraction
+// canny edge with threshold trackbar
 
 // command: 
 
@@ -22,7 +20,7 @@ void threshold_callback(int, void*);
 
 
 // GLOBAL VARIABLE & CONSTANT /////////////////////////////////////////////////
-Mat img_gray, img_ellipse;
+Mat img_gray, img_edge;
 
 // Canny Threshold
 int threshold_1 = 50;
@@ -83,8 +81,8 @@ int main(int argc, char **argv)
         file_dir    = image_path.substr(0, index_dot);
         file_format = image_path.substr(index_dot, image_path.length());
 
-        imwrite(file_dir + "_ellipse" + file_format, img_ellipse);
-        std::cout << "Ellipse image saved to the original image directory"
+        imwrite(file_dir + "_edge" + file_format, img_edge);
+        std::cout << "edge image saved to the original image directory"
                   << std::endl;
     }
 
@@ -99,50 +97,11 @@ void threshold_callback(int, void*)
     Mat img_edge;
 
 
-    // Setting ================================================================
-    std::vector<std::vector<Point>> contours;
-
-    // drawing
-    Point2f rect_points[4];
-
-
     // MAIN ===================================================================
     // apply Canny edge detector
     Canny(img_gray, img_edge, threshold_1, threshold_1 * 2);
 
-    // find contours ----------------------------------------------------------
-    findContours(img_edge, contours, RETR_TREE, CHAIN_APPROX_SIMPLE,
-                 Point(0, 0));
-
-    std::vector<RotatedRect> minRects   (contours.size());
-    std::vector<RotatedRect> minEllipses(contours.size());
-    for (int i = 0; i < contours.size(); i++)
-    {
-        minRects[i] = minAreaRect(contours[i]);
-        
-        if(contours[i].size() > 5) // why 5?
-        {
-            minEllipses[i] = fitEllipse(contours[i]);
-        }
-    }
-
-    // draw contours ----------------------------------------------------------
-    img_ellipse = Mat::zeros(img_edge.size(), CV_8UC3);
-    for (int i = 0; i < contours.size(); i++)
-    {
-        drawContours(img_ellipse, contours, i, Scalar(0, 0, 255));
-
-        ellipse(img_ellipse, minEllipses[i], Scalar(0, 255, 0), 2);
-
-        minRects[i].points(rect_points);
-        for (int j = 0; j < 4; j++)
-        {
-            line(img_ellipse, rect_points[j], rect_points[(j + 1) % 4], 
-                    Scalar(255, 0, 0));
-        }
-    }
-
 
     // Show Image =============================================================
-    imshow("Ellipse Image", img_ellipse);
+    imshow("edge Image", img_edge);
 }
