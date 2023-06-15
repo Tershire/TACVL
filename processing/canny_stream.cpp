@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
 
     // Create VideoCapture Object =============================================
-    VideoCapture cap(0);
+    VideoCapture cap(2);
 
     // check capture
     if (!cap.isOpened()) {

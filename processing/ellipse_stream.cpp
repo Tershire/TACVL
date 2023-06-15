@@ -75,7 +75,7 @@ int main(int argc, char **argv)
         {
             minRects[i] = minAreaRect(contours[i]);
             
-            if(contours[i].size() > 5) // why 5?
+            if(contours[i].size() > 25) // why 5?
             {
                 minEllipses[i] = fitEllipse(contours[i]);
             }
