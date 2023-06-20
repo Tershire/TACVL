@@ -38,7 +38,8 @@ int main(int argc, char **argv)
     // ------------------------------------------------------------------------
 
     // check capture
-    if (!cap.isOpened()) {
+    if (!cap.isOpened()) 
+    {
         std::cerr << "ERROR: Capturer is not open\n";
         return 1;
     }
