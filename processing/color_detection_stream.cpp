@@ -22,8 +22,11 @@ using namespace cv;
 int main(int argc, char **argv)
 {
     // Variable ===============================================================
-    Mat frame, frame_edge, frame_gray, frame_gray_UC83;
+    Mat frame, frame_HSV, output_frame_1, output_frame_2, output_frame_3,
+        output_frame;
         
+    std::vector<Mat> output_frames;
+
 
     // Create VideoCapture Object =============================================
     VideoCapture cap(2);
@@ -37,23 +40,25 @@ int main(int argc, char **argv)
 
 
     // Setting: Color Detection ===============================================
-    // boundary (HSV) -------------------------------------------------------
-    // lane: <BLUE> plane 
-    Scalar lower_boundary_1(14, 100, 100)
-    upper_boundary_1
+    // boundary (HSV) ---------------------------------------------------------
+    int tolerance = 25;
 
-    // lane: <GREEN> fixed window
-    lower_boundary_2
-    upper_boundary_2
+    // <BLUE>
+    Scalar lower_boundary_1(120 - tolerance, 100, 100);
+    Scalar upper_boundary_1(120 + tolerance, 255, 255);
 
-    // lane: <RED> moving window
-    lower_boundary_3(14)
-    upper_boundary_3
+    // <GREEN>
+    Scalar lower_boundary_2( 60 - tolerance, 100, 100);
+    Scalar upper_boundary_2( 60 + tolerance, 255, 255);
 
-    // mask
+    // <RED>
+    Scalar lower_boundary_3(  0 - tolerance, 100, 100);
+    Scalar upper_boundary_3(  0 + tolerance, 255, 255);
+
+    //
+    Mat mask_1, mask_2, mask_3;
+
     
-
-
     // Stream Video ===========================================================
     for(;;)
     {
@@ -67,42 +72,36 @@ int main(int argc, char **argv)
             break;
         }
 
-        // Main ---------------------------------------------------------------
-        // convert to grayscale
-        cvtColor(frame, frame_gray, COLOR_BGR2GRAY);
-        cvtColor(frame_gray, frame_gray_UC83, COLOR_GRAY2BGR);
-        
+        // Main ---------------------------------------------------------------       
         // apply blur filter (to reduce noise)
         // GaussianBlur(frame, frame, Size(5, 5), 0);
-        blur(frame_gray, frame_gray, Size(3,3));
+        blur(frame, frame, Size(3,3));
 
-        // apply Canny edge detector
-        Canny(frame_gray, frame_edge, 50, 100);
+        // convert to HSV
+        cvtColor(frame, frame_HSV, COLOR_BGR2HSV);
 
-        // Hough line transform
-        HoughLines(frame_edge, lines, 1, CV_PI/180, 150, 0, 0);
+        // mask
+        inRange(frame_HSV, lower_boundary_1, upper_boundary_1, mask_1);
+        inRange(frame_HSV, lower_boundary_2, upper_boundary_2, mask_2);     
+        inRange(frame_HSV, lower_boundary_3, upper_boundary_3, mask_3);
 
-        // draw contours ------------------------------------------------------
-        for(int i = 0; i < lines.size(); i++)
-        {
-            rho   = lines[i][0];
-            theta = lines[i][1];
-            a     = cos(theta);
-            b     = sin(theta);
-            x0    = a*rho;
-            y0    = b*rho;
-
-            pt_1.x = cvRound(x0 + 1000*(-b));
-            pt_1.y = cvRound(y0 + 1000*( a));
-            pt_2.x = cvRound(x0 - 1000*(-b));
-            pt_2.y = cvRound(y0 - 1000*( a));
-
-            // line(frame_edge_BGR, pt_1, pt_2, Scalar(0, 0, 255), 3, LINE_AA);
-            line(frame_gray_UC83, pt_1, pt_2, Scalar(0, 0, 255), 3, LINE_AA);
-        }
-
+        // bitwise-&
+        bitwise_and(frame_HSV, frame_HSV, output_frame_1, mask_1);
+        bitwise_and(frame_HSV, frame_HSV, output_frame_2, mask_2);
+        bitwise_and(frame_HSV, frame_HSV, output_frame_3, mask_3);
+        
         // show frame ---------------------------------------------------------
-        imshow("Hough Line Stream", frame_gray_UC83);
+        // concatenate output frames
+        output_frames = {output_frame_1, output_frame_2, output_frame_3};
+        hconcat(output_frames, output_frame);
+
+        // resize
+        resize(frame, frame, Size(), 0.3, 0.3, INTER_LINEAR);
+        resize(output_frame, output_frame, Size(), 0.3, 0.3, INTER_LINEAR);
+
+        //
+        imshow("view", frame);
+        imshow("color detection", output_frame);
         int key = waitKey(10);
         if (key == 27)
         {
