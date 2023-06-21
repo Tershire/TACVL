@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 
 
     // Create VideoCapture Object =============================================
-    VideoCapture cap(0);
+    VideoCapture cap(2);
 
     // check capture
     if (!cap.isOpened()) 
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
     // Setting: Color Detection ===============================================
     // boundary (HSV) ---------------------------------------------------------
-    const int TOLERANCE = 30;
+    const int TOLERANCE = 15;
 
     // <BLUE>
     Scalar lower_boundary_1(120 - TOLERANCE, 100, 100);
@@ -63,8 +63,8 @@ int main(int argc, char **argv)
     Scalar upper_boundary_2( 60 + TOLERANCE, 255, 255);
 
     // <RED>
-    Scalar lower_boundary_3(170 - TOLERANCE, 100, 100);
-    Scalar upper_boundary_3(170 + TOLERANCE, 255, 255);
+    Scalar lower_boundary_3(180 - TOLERANCE, 100, 100);
+    Scalar upper_boundary_3(180 + TOLERANCE, 255, 255);
 
     //
     Mat mask_1, mask_2, mask_3;
