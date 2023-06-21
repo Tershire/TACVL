@@ -6,6 +6,9 @@
 // https://dsbook.tistory.com/166
 // https://docs.opencv.org/3.4/da/d97/tutorial_threshold_inRange.html
 // https://docs.opencv.org/4.x/df/d9d/tutorial_py_colorspaces.html
+// https://stackoverflow.com/questions/48109650/
+// how-to-detect-two-different-colors-using-cv2-inrange-in-python-opencv
+// https://github.com/Amirag96/Red-color-detection/blob/master/red.py *
 
 // detect colors using cv.inRange()
 
@@ -18,18 +21,24 @@
 using namespace cv;
 
 
+// GLOBAL VARIABLE & CONSTANT /////////////////////////////////////////////////
+const float SCALE_FACTOR = 0.4;
+
+
 // MAIN ///////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
     // Variable ===============================================================
-    Mat frame, frame_HSV, output_frame_1, output_frame_2, output_frame_3,
-        output_frame;
-        
-    std::vector<Mat> output_frames;
+    Mat frame, frame_HSV;
+
+    // show
+    Mat mask, output_frame;
+    
+    std::vector<Mat> masks, output_frames;
 
 
     // Create VideoCapture Object =============================================
-    VideoCapture cap(2);
+    VideoCapture cap(0);
 
     // check capture
     if (!cap.isOpened()) 
@@ -41,19 +50,19 @@ int main(int argc, char **argv)
 
     // Setting: Color Detection ===============================================
     // boundary (HSV) ---------------------------------------------------------
-    int tolerance = 25;
+    const int TOLERANCE = 30;
 
     // <BLUE>
-    Scalar lower_boundary_1(120 - tolerance, 100, 100);
-    Scalar upper_boundary_1(120 + tolerance, 255, 255);
+    Scalar lower_boundary_1(120 - TOLERANCE, 100, 100);
+    Scalar upper_boundary_1(120 + TOLERANCE, 255, 255);
 
     // <GREEN>
-    Scalar lower_boundary_2( 60 - tolerance, 100, 100);
-    Scalar upper_boundary_2( 60 + tolerance, 255, 255);
+    Scalar lower_boundary_2( 60 - TOLERANCE, 100, 100);
+    Scalar upper_boundary_2( 60 + TOLERANCE, 255, 255);
 
     // <RED>
-    Scalar lower_boundary_3(  0 - tolerance, 100, 100);
-    Scalar upper_boundary_3(  0 + tolerance, 255, 255);
+    Scalar lower_boundary_3(170 - TOLERANCE, 100, 100);
+    Scalar upper_boundary_3(170 + TOLERANCE, 255, 255);
 
     //
     Mat mask_1, mask_2, mask_3;
@@ -86,21 +95,29 @@ int main(int argc, char **argv)
         inRange(frame_HSV, lower_boundary_3, upper_boundary_3, mask_3);
 
         // bitwise-&
-        bitwise_and(frame_HSV, frame_HSV, output_frame_1, mask_1);
-        bitwise_and(frame_HSV, frame_HSV, output_frame_2, mask_2);
-        bitwise_and(frame_HSV, frame_HSV, output_frame_3, mask_3);
+        Mat output_frame_1, output_frame_2, output_frame_3;
+        // ^ if these frames are declared outside the loop, image trails remain
+
+        bitwise_and(frame, frame, output_frame_1, mask_1);
+        bitwise_and(frame, frame, output_frame_2, mask_2);
+        bitwise_and(frame, frame, output_frame_3, mask_3);
         
         // show frame ---------------------------------------------------------
         // concatenate output frames
+        masks = {mask_1, mask_2, mask_3};
+        hconcat(masks, mask);
         output_frames = {output_frame_1, output_frame_2, output_frame_3};
         hconcat(output_frames, output_frame);
 
         // resize
-        resize(frame, frame, Size(), 0.3, 0.3, INTER_LINEAR);
-        resize(output_frame, output_frame, Size(), 0.3, 0.3, INTER_LINEAR);
+        resize(mask, mask, Size(), 
+               SCALE_FACTOR, SCALE_FACTOR, INTER_LINEAR);
+        resize(output_frame, output_frame, Size(), 
+               SCALE_FACTOR, SCALE_FACTOR, INTER_LINEAR);
 
         //
         imshow("view", frame);
+        imshow("mask", mask);
         imshow("color detection", output_frame);
         int key = waitKey(10);
         if (key == 27)
