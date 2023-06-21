@@ -9,6 +9,8 @@
 // https://stackoverflow.com/questions/48109650/
 // how-to-detect-two-different-colors-using-cv2-inrange-in-python-opencv
 // https://github.com/Amirag96/Red-color-detection/blob/master/red.py *
+// https://sanpreetai.medium.com/
+// detection-of-a-specific-color-red-using-opencv-and-python-fbb608ef2fed
 
 // detect colors using cv.inRange()
 
