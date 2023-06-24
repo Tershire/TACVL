@@ -67,7 +67,7 @@ int main(int argc, char **argv)
         blur(frame_gray, frame_gray, Size(3,3));
 
         // apply Canny edge detector
-        Canny(frame_gray, frame_edge, 50, 100);
+        Canny(frame_gray, frame_edge, 120, 255);
 
         // Hough line transform
         HoughLines(frame_edge, lines, 1, CV_PI/180, 150, 0, 0);

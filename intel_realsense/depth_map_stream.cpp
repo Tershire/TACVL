@@ -47,8 +47,7 @@ int main(int argc, char **argv) try
     // get 1st frame and its dimensions
     data = pipe.wait_for_frames();
         
-    depth_frame = data.get_depth_frame()
-                      .apply_filter(color_map);;
+    depth_frame = data.get_depth_frame();
 
     const int WIDTH  = depth_frame.as<rs2::video_frame>().get_width();
     const int HEIGHT = depth_frame.as<rs2::video_frame>().get_height();
@@ -62,7 +61,7 @@ int main(int argc, char **argv) try
         data = pipe.wait_for_frames();
         
         depth_frame = data.get_depth_frame()
-                          .apply_filter(color_map);;
+                          .apply_filter(color_map);
 
         // convert rs2::frame to cv::mat --------------------------------------
         frame_output = Mat(Size(WIDTH, HEIGHT), CV_8UC3, 

@@ -21,11 +21,11 @@ using namespace cv;
 int main(int argc, char **argv)
 {
     // Variable ===============================================================
-    Mat frame, frame_edge;
+    Mat frame, frame_gray, frame_gray_UC83, frame_edge;
         
 
     // Create VideoCapture Object =============================================
-    VideoCapture cap(0);
+    VideoCapture cap(2);
 
     // check capture
     if (!cap.isOpened()) 
@@ -57,14 +57,15 @@ int main(int argc, char **argv)
 
         // Main --------------------------------------------------------------
         // convert to grayscale
-        cvtColor(frame, frame, COLOR_BGR2GRAY);
+        cvtColor(frame, frame_gray, COLOR_BGR2GRAY);
+        cvtColor(frame_gray, frame_gray_UC83, COLOR_GRAY2BGR);
         
         // apply blur filter (to reduce noise)
         // GaussianBlur(frame, frame, Size(5, 5), 0);
-        blur(frame, frame, Size(3,3)); // Sobel -> seems to work better
+        blur(frame_gray, frame_gray, Size(3,3)); // Sobel -> seems to work better
 
         // apply Canny edge detector
-        Canny(frame, frame_edge, 50, 100);
+        Canny(frame_gray, frame_edge, 120, 255);
 
         // find contours
         findContours(frame_edge, contours, RETR_TREE, CHAIN_APPROX_SIMPLE,
@@ -76,30 +77,30 @@ int main(int argc, char **argv)
         {
             minRects[i] = minAreaRect(contours[i]);
             
-            if(contours[i].size() > 25) // why 5?
+            if(contours[i].size() > 5) // why 5?
             {
                 minEllipses[i] = fitEllipse(contours[i]);
             }
         }
 
         // draw contours
-        Mat frame_ellipse = Mat::zeros(frame_edge.size(), CV_8UC3);
+        // Mat frame_ellipse = Mat::zeros(frame_gray_UC83.size(), CV_8UC3);
         for (int i = 0; i < contours.size(); i++)
         {
-            drawContours(frame_ellipse, contours, i, Scalar(0, 0, 255));
+            drawContours(frame_gray_UC83, contours, i, Scalar(0, 0, 255));
 
-            ellipse(frame_ellipse, minEllipses[i], Scalar(0, 255, 0), 2);
+            ellipse(frame_gray_UC83, minEllipses[i], Scalar(0, 255, 0), 2);
 
             minRects[i].points(rect_points);
             for (int j = 0; j < 4; j++)
             {
-                line(frame_ellipse, rect_points[j], rect_points[(j + 1) % 4], 
+                line(frame_gray_UC83, rect_points[j], rect_points[(j + 1) % 4], 
                      Scalar(255, 0, 0));
             }
         }
 
         // show frame ---------------------------------------------------------
-        imshow("Ellipse Stream", frame_ellipse);
+        imshow("Ellipse Stream", frame_gray_UC83);
         int key = waitKey(10);
         if (key == 27)
         {

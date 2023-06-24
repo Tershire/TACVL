@@ -24,7 +24,7 @@ using namespace cv;
 
 
 // GLOBAL VARIABLE & CONSTANT /////////////////////////////////////////////////
-const float SCALE_FACTOR = 0.4;
+const float SCALE_FACTOR = 0.3;
 
 
 // MAIN ///////////////////////////////////////////////////////////////////////
@@ -52,19 +52,20 @@ int main(int argc, char **argv)
 
     // Setting: Color Detection ===============================================
     // boundary (HSV) ---------------------------------------------------------
+    // try BGR
     const int TOLERANCE = 15;
 
     // <BLUE>
-    Scalar lower_boundary_1(120 - TOLERANCE, 100, 100);
-    Scalar upper_boundary_1(120 + TOLERANCE, 255, 255);
+    Scalar lower_boundary_1(120 - 1.4*TOLERANCE, 100, 100);
+    Scalar upper_boundary_1(120 + 1.4*TOLERANCE, 255, 255);
 
     // <GREEN>
-    Scalar lower_boundary_2( 60 - TOLERANCE, 100, 100);
-    Scalar upper_boundary_2( 60 + TOLERANCE, 255, 255);
+    Scalar lower_boundary_2( 60 - 1.5*TOLERANCE,  80,  80);
+    Scalar upper_boundary_2( 60 + 1.5*TOLERANCE, 255, 255);
 
     // <RED>
-    Scalar lower_boundary_3(180 - TOLERANCE, 100, 100);
-    Scalar upper_boundary_3(180 + TOLERANCE, 255, 255);
+    Scalar lower_boundary_3( 20 - 1.2*TOLERANCE, 100, 100);
+    Scalar upper_boundary_3( 20 + 1.2*TOLERANCE, 255, 255);
 
     //
     Mat mask_1, mask_2, mask_3;
@@ -112,6 +113,8 @@ int main(int argc, char **argv)
         hconcat(output_frames, output_frame);
 
         // resize
+        resize(frame, frame, Size(), 
+               SCALE_FACTOR, SCALE_FACTOR, INTER_LINEAR);
         resize(mask, mask, Size(), 
                SCALE_FACTOR, SCALE_FACTOR, INTER_LINEAR);
         resize(output_frame, output_frame, Size(), 
