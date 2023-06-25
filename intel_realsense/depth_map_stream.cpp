@@ -60,7 +60,7 @@ int main(int argc, char **argv) try
         // read frame ---------------------------------------------------------
         data = pipe.wait_for_frames();
         
-        depth_frame = data.get_depth_frame()
+        depth_frame = data.get_depth_frame() 
                           .apply_filter(color_map);
 
         // convert rs2::frame to cv::mat --------------------------------------
