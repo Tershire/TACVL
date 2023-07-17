@@ -67,6 +67,7 @@
         "variant": "cpp",
         "forward_list": "cpp",
         "unordered_set": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "geometry": "cpp"
     }
 }

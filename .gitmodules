@@ -1,0 +1,12 @@
+[submodule "third-party/Pangolin"]
+	path = third-party/Pangolin
+	url = https://github.com/stevenlovegrove/Pangolin.git
+[submodule "third-party/g2o"]
+	path = third-party/g2o
+	url = https://github.com/RainerKuemmerle/g2o.git
+[submodule "third-party/Sophus"]
+	path = third-party/Sophus
+	url = https://github.com/strasdat/Sophus.git
+[submodule "third-party/ceres-solver"]
+	path = third-party/ceres-solver
+	url = https://github.com/ceres-solver/ceres-solver.git
