@@ -11,6 +11,7 @@
 
 
 #include <iostream>
+#include <unistd.h>
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Geometry>
 #include <pangolin/pangolin.h>
@@ -40,13 +41,26 @@ int main(int argc, char **argv)
         .SetBounds(0.0, 1.0, 0.0, pangolin::Attach::Pix(175));
 
     // toggle
-    pangolin::Var<bool> toggle_step_by_step("menu.Step By Step", false, true);
+    // ("menu.~", {initial value}, {checkbox: true, button: false})
+    pangolin::Var<bool> toggle_step_by_step("menu.Step By Step", true, true );
+    pangolin::Var<bool> button_next_frame  ("menu.Next Frame"  , true, false);
     // ------------------------------------------------------------------------
 
     while(!pangolin::ShouldQuit())
     {
         // clear screen and activate view to render into
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // side menu operation ------------------------------------------------
+        if(toggle_step_by_step)
+        {
+        }
+
+        if(pangolin::Pushed(button_next_frame))
+            std::cout << "You Pushed a button!" << std::endl;
+
+        // --------------------------------------------------------------------
+
         d_cam.Activate(s_cam);
 
         // set background color

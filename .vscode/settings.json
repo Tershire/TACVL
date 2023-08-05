@@ -68,6 +68,16 @@
         "forward_list": "cpp",
         "unordered_set": "cpp",
         "core": "cpp",
-        "geometry": "cpp"
+        "geometry": "cpp",
+        "csignal": "cpp",
+        "any": "cpp",
+        "strstream": "cpp",
+        "cfenv": "cpp",
+        "codecvt": "cpp",
+        "regex": "cpp",
+        "future": "cpp",
+        "scoped_allocator": "cpp",
+        "valarray": "cpp",
+        "dense": "cpp"
     }
 }

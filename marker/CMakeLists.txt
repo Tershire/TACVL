@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
-project(Marker)
+project(marker)
 
 find_package(OpenCV 4 REQUIRED)
 
-add_executable(qr_stream qr_stream.cpp)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-target_link_libraries(qr_stream ${OpenCV_LIBS})
+add_subdirectory(qr)
