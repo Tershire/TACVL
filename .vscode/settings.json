@@ -78,6 +78,7 @@
         "future": "cpp",
         "scoped_allocator": "cpp",
         "valarray": "cpp",
-        "dense": "cpp"
+        "dense": "cpp",
+        "*.ipp": "cpp"
     }
 }

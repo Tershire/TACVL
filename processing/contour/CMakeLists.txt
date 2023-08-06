@@ -20,3 +20,5 @@ target_link_libraries(ellipse_image ${OpenCV_LIBS})
 target_link_libraries(ellipse_stream ${OpenCV_LIBS})
 target_link_libraries(ellipse_trackbar ${OpenCV_LIBS})
 target_link_libraries(hough_line_stream ${OpenCV_LIBS})
+
+add_subdirectory(tutorial)
