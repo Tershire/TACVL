@@ -10,6 +10,8 @@
 
 
 #include <opencv2/opencv.hpp>
+#include <assert.h>
+#include <fstream> // std::ifstream
 
 // prototype
 std::vector<std::string> get_output_layer_names(const cv::dnn::Net& net);
@@ -18,10 +20,13 @@ void post_process(cv::Mat& img, const std::vector<cv::Mat>& output_blobs,
     const double& CONFIDENCE_THRESHOLD, const double& NMS_THRESHOLD,
     std::vector<int>& class_IDs,
     std::vector<float>& confidences,
-    std::vector<cv::Rect>& boxes);
+    std::vector<cv::Rect>& boxes,
+    const std::map<unsigned int, std::string>& classes);
 
 void draw_prediction(cv::Mat& img, int left, int top, int right, int bottom, 
-    int class_ID, float confidence);
+    int class_ID, float confidence, const std::map<unsigned int, std::string>& classes);
+
+std::map<unsigned int, std::string> load_classes(const std::string& classes_path);
 
 
 int main(int argc, char **argv)
@@ -45,14 +50,17 @@ int main(int argc, char **argv)
     cfg_path     = "model/yolov3-tiny.cfg";
     weights_path = "model/yolov3-tiny.weights";
 
+    // load classes
+    std::string classes_path = "model/coco.names";
+    std::map<unsigned int, std::string> classes = load_classes(classes_path);
+
     // load network
     cv::dnn::Net net = cv::dnn::readNetFromDarknet(cfg_path, weights_path);
     net.setPreferableBackend(cv::dnn::DNN_BACKEND_OPENCV);
     net.setPreferableTarget(cv::dnn::DNN_TARGET_CPU);
 
     // check info.
-    std::vector<std::string> output_layer_names = 
-        get_output_layer_names(net);
+    std::vector<std::string> output_layer_names = get_output_layer_names(net);
     std::cout << "output layer names: " << std::endl;
     for (auto& name : output_layer_names)
     {
@@ -96,9 +104,7 @@ int main(int argc, char **argv)
         img_out = img.clone();
         post_process(img_out, output_blobs,
             CONFIDENCE_THRESHOLD, NMS_THRESHOLD,
-            class_IDs, confidences, boxes);
-
-        // postprocess(img_out, output_blobs);
+            class_IDs, confidences, boxes, classes);
 
         // show frame /////////////////////////////////////////////////////////
         // resize
@@ -142,7 +148,8 @@ void post_process(cv::Mat& img, const std::vector<cv::Mat>& output_blobs,
     const double& CONFIDENCE_THRESHOLD, const double& NMS_THRESHOLD,
     std::vector<int>& class_IDs,
     std::vector<float>& confidences,
-    std::vector<cv::Rect>& boxes)
+    std::vector<cv::Rect>& boxes,
+    const std::map<unsigned int, std::string>& classes)
 {
     for (size_t i = 0; i < output_blobs.size(); ++i)
     {
@@ -188,12 +195,13 @@ void post_process(cv::Mat& img, const std::vector<cv::Mat>& output_blobs,
         index = indices[i];
         cv::Rect box = boxes[index];
 
-        draw_prediction(img, box.x, box.y, box.x + box.width, box.y + box.height, class_IDs[index], confidences[index]);
+        draw_prediction(img, box.x, box.y, box.x + box.width, box.y + box.height, 
+            class_IDs[index], confidences[index], classes);
     }
 }
 
 void draw_prediction(cv::Mat& img, int left, int top, int right, int bottom, 
-    int class_ID, float confidence)
+    int class_ID, float confidence, const std::map<unsigned int, std::string>& classes)
 {
     //
     std::cout << "box: " << "(" << left  << ", " << top    << ")" 
@@ -201,18 +209,32 @@ void draw_prediction(cv::Mat& img, int left, int top, int right, int bottom,
 
     cv::rectangle(img, cv::Point(left, top), cv::Point(right, bottom), cv::Scalar(0, 255, 0), 2);
     
-    //Get the label for the class name and its confidence
-    // string label = format("%.2f", conf);
-    // if (!classes.empty())
-    // {
-    //     CV_Assert(classId < (int)classes.size());
-    //     label = classes[classId] + ":" + label;
-    // }
+    // get class name and confidence
+    std::string label = cv::format("%.2f", confidence);
+    if (!classes.empty())
+    {
+        assert(class_ID < classes.size());
+        label = classes.at(class_ID) + ": " + label;
+    }
     
-    // //Display the label at the top of the bounding box
-    // int baseLine;
-    // Size labelSize = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-    // top = max(top, labelSize.height);
-    // rectangle(frame, Point(left, top - round(1.5*labelSize.height)), Point(left + round(1.5*labelSize.width), top + baseLine), Scalar(255, 255, 255), FILLED);
-    // putText(frame, label, Point(left, top), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0,0,0),1);
+    // draw label
+    cv::putText(img, label, cv::Point(left, top - 7), cv::FONT_HERSHEY_SIMPLEX, 0.75, cv::Scalar(0, 255, 0), 2);
+}
+
+// Load names of classes
+std::map<unsigned int, std::string> load_classes(const std::string& classes_path)
+{
+    unsigned int class_ID = 0;
+
+    std::map<unsigned int, std::string> classes;
+
+    std::ifstream input_stream(classes_path.c_str());
+    std::string line;
+    while (getline(input_stream, line)) 
+    {
+        classes.insert({class_ID, line});
+        class_ID += 1;
+    }
+
+    return classes;
 }
