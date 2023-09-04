@@ -7,6 +7,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 add_subdirectory(binarization)
 add_subdirectory(color)
+add_subdirectory(connected_components)
 add_subdirectory(contour)
 add_subdirectory(contrast)
 add_subdirectory(mask)

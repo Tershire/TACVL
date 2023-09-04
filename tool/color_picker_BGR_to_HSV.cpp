@@ -1,4 +1,4 @@
-// color_picker_BGR_trackbar.cpp
+// color_picker_BGR_to_HSV.cpp
 // 2023 JUN 20
 // Tershire
 

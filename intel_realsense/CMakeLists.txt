@@ -8,5 +8,9 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 add_executable(depth_map_stream depth_map_stream.cpp)
+add_executable(grabcut grabcut.cpp)
+add_executable(camera_properties camera_properties.cpp)
 
 target_link_libraries(depth_map_stream ${realsense2_LIBRARY} ${OpenCV_LIBS})
+target_link_libraries(grabcut ${realsense2_LIBRARY} ${OpenCV_LIBS})
+target_link_libraries(camera_properties ${realsense2_LIBRARY} ${OpenCV_LIBS})
