@@ -23,8 +23,8 @@ Eigen::Vector3f unprojectEig(const cv::Point2f &p2D);
 // GLOBAL VARIABLE & CONSTANT /////////////////////////////////////////////////
 double fx = 286.5614013671875;
 double fy = 286.510498046875;
-double cx = 414.99539184570312;
-double cy = 381.01388549804688;
+double cx = 512 / 2; // 414.99539184570312;
+double cy = 512 / 2; // 381.01388549804688;
 
 double k0 = -0.013021349906921387;
 double k1 =  0.053306881338357925;

@@ -1,4 +1,4 @@
- // connected_components.cpp
+// connected_components.cpp
 // 2023 SEP 03
 // Tershire
 
