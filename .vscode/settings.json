@@ -81,6 +81,11 @@
         "dense": "cpp",
         "*.ipp": "cpp",
         "color_picker_bgr_to_hsvcpp": "cpp",
-        "multi_display_plot": "cpp"
+        "multi_display_plot": "cpp",
+        "__node_handle": "cpp",
+        "__split_buffer": "cpp",
+        "filesystem": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     }
 }
