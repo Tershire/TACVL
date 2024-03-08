@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     }
 
     // create VideoWriter object ==============================================
-    // get one frame to know frame size and type
+    // get one frame to know video properties ---------------------------------
     cap >> frame;
 
     if (frame.empty())
@@ -43,10 +43,10 @@ int main(int argc, char **argv)
         return -1;
     }
     bool is_color_image = (frame.type() == CV_8UC3);
-
+    double fps = cap.get(cv::CAP_PROP_FPS);
+    // ------------------------------------------------------------------------
     
-    int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
-    double fps = 30;
+    int codec = cv::VideoWriter::fourcc('A', 'V', 'C', '1');
 
     cv::VideoWriter writer{"my_video.mp4", codec, fps, frame.size(), is_color_image};
 

@@ -35,3 +35,8 @@
 *.idea
 build/
 bin/
+
+# media
+*.mp4
+*.avi
+
