@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     
     int codec = cv::VideoWriter::fourcc('A', 'V', 'C', '1');
 
-    cv::VideoWriter writer{"my_video.mp4", codec, fps, frame.size(), is_color_image};
+    cv::VideoWriter writer{"./data/my_video.mp4", codec, fps, frame.size(), is_color_image};
 
     if (!writer.isOpened()) 
     {
